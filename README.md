@@ -1,6 +1,8 @@
 # gozzzproducer
 
-gozzzproducer is task producer with [gozzzWorker](http://github.com/zondatw/gozzzWorker).  
+[![Go Report Card](https://goreportcard.com/badge/github.com/zondatw/gozzzproducer)](https://goreportcard.com/report/github.com/zondatw/gozzzproducer)
+
+gozzzproducer is task producer with [gozzzworker](http://github.com/zondatw/gozzzworker).  
 
 ## Installation
 
