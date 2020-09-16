@@ -1,4 +1,4 @@
-package goZzzProducer
+package gozzzproducer
 
 import (
 	"encoding/json"
@@ -24,8 +24,8 @@ type TaskJsonType struct {
 func NewBroker(address string, password string, db int) *Broker {
 	return &Broker{
 		conn:     NewRedisConn(address, password, db),
-		queueKey: "goZzzWorker:task:queue",
-		msgKey:   "goZzzWorker:task:msg",
+		queueKey: "gozzzworker:task:queue",
+		msgKey:   "gozzzworker:task:msg",
 	}
 }
 

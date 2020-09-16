@@ -1,4 +1,4 @@
-module github.com/zondatw/goZzzProducer
+module github.com/zondatw/gozzzproducer
 
 go 1.13
 

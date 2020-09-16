@@ -1,4 +1,4 @@
-package goZzzProducer
+package gozzzproducer
 
 import (
 	"context"

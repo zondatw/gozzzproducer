@@ -1,4 +1,4 @@
-package goZzzProducer
+package gozzzproducer
 
 // Producer is producer struct
 type Producer struct {
