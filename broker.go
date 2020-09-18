@@ -12,10 +12,11 @@ type Broker struct {
 	conn     *RedisConn
 	queueKey string
 	msgKey   string
+	retKey   string
 }
 
-// TaskJsonType is register task json schema
-type TaskJsonType struct {
+// TaskJSONType is register task json schema
+type TaskJSONType struct {
 	Task string      `json:"task"`
 	Args interface{} `json:"args"`
 }
@@ -26,12 +27,13 @@ func NewBroker(address string, password string, db int) *Broker {
 		conn:     NewRedisConn(address, password, db),
 		queueKey: "gozzzworker:task:queue",
 		msgKey:   "gozzzworker:task:msg",
+		retKey:   "gozzzworker:task:ret",
 	}
 }
 
 // AddTask add new task to broker
-func (broker *Broker) AddTask(taskName string, jsonData interface{}, delaySec int) (retErr error) {
-	byteArrayData, err := json.Marshal(&TaskJsonType{
+func (broker *Broker) AddTask(taskName string, jsonData interface{}, delaySec int) (taskID string, retErr error) {
+	byteArrayData, err := json.Marshal(&TaskJSONType{
 		Task: taskName,
 		Args: jsonData,
 	})
@@ -45,7 +47,7 @@ func (broker *Broker) AddTask(taskName string, jsonData interface{}, delaySec in
 		retErr = err
 		return
 	}
-	taskID := taskUUID.String()
+	taskID = taskUUID.String()
 	timing := time.Now().Add(time.Second * time.Duration(delaySec)).Unix()
 	broker.conn.SetHashValue(broker.msgKey, taskID, stringData)
 	broker.conn.SetZSetValue(broker.queueKey, taskID, float64(timing))

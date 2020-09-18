@@ -36,6 +36,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 
 	"github.com/zondatw/gozzzproducer"
 )
@@ -52,6 +53,13 @@ func main() {
 		DB:       0,
 	})
 
-	p.AddTask("Task 1", &ArgType{A: 1, B: "producer~~~~"}, 10)
+	m, err := p.AddTask("Task 1", &ArgType{A: 1, B: "producer~~~~"}, 10)
+	if err == nil {
+		// block: true, timeout: 60sec
+		status, jsonMsg, err := m.GetRetMessage(true, 60)
+		// When status is Success, task is complete execution and msg is task function return message
+		// When status is Fail, task have error and msg is task error message
+		log.Println("status:", status, "msg:", msg, "err:", err)
+	}
 }
 ```
