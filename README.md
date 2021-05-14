@@ -53,7 +53,12 @@ func main() {
 		DB:       0,
 	})
 
-	m, err := p.AddTask("Task 1", &ArgType{A: 1, B: "producer~~~~"}, 10)
+	m, err := p.AddTask(
+		"Task 1",                          // Task
+		&ArgType{A: 1, B: "producer~~~~"}, // Args
+		1,                                 // Priority, 0 is higher
+		2,                                 // deplay sec
+	)
 	if err == nil {
 		// block: true, timeout: 60sec
 		status, jsonMsg, err := m.GetRetMessage(true, 60)

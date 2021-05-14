@@ -17,8 +17,9 @@ type Broker struct {
 
 // TaskJSONType is register task json schema
 type TaskJSONType struct {
-	Task string      `json:"task"`
-	Args interface{} `json:"args"`
+	Task     string      `json:"task"`
+	Args     interface{} `json:"args"`
+	Priority int         `json:"priority"`
 }
 
 // NewBroker will initialize a new broker
@@ -32,10 +33,11 @@ func NewBroker(address string, password string, db int) *Broker {
 }
 
 // AddTask add new task to broker
-func (broker *Broker) AddTask(taskName string, jsonData interface{}, delaySec int) (taskID string, retErr error) {
+func (broker *Broker) AddTask(taskName string, jsonData interface{}, priority int, delaySec int) (taskID string, retErr error) {
 	byteArrayData, err := json.Marshal(&TaskJSONType{
-		Task: taskName,
-		Args: jsonData,
+		Task:     taskName,
+		Args:     jsonData,
+		Priority: priority,
 	})
 	if err != nil {
 		retErr = err

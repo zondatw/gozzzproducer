@@ -21,8 +21,8 @@ func NewProducer(setting *ProducerSetting) *Producer {
 }
 
 // AddTask add new task to broker
-func (p *Producer) AddTask(taskName string, jsonData interface{}, delaySec int) (message *Message, retErr error) {
-	taskID, err := p.broker.AddTask(taskName, jsonData, delaySec)
+func (p *Producer) AddTask(taskName string, jsonData interface{}, priority int, delaySec int) (message *Message, retErr error) {
+	taskID, err := p.broker.AddTask(taskName, jsonData, priority, delaySec)
 	if err != nil {
 		retErr = err
 	}
